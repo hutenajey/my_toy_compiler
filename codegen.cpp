@@ -35,7 +35,10 @@ void CodeGenContext::generateCode(NBlock& root)
 /* Executes the AST by running the main function */
 GenericValue CodeGenContext::runCode() {
 	std::cout << "Running code...\n";
-	ExecutionEngine *ee = EngineBuilder( unique_ptr<Module>(module) ).create();
+	ExecutionEngine *ee = EngineBuilder(module).setErrorStr(&error).create();
+        if(!ee) {
+           std::cout << error << "//ee is null.\n";
+        }
 	ee->finalizeObject();
 	vector<GenericValue> noargs;
 	GenericValue v = ee->runFunction(mainFunction, noargs);
