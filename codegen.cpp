@@ -27,14 +27,15 @@ void CodeGenContext::generateCode(NBlock& root)
 	std::cout << "Code is generated.\n";
 	// module->dump();
 
-	legacy::PassManager pm;
-	pm.add(createPrintModulePass(outs()));
-	pm.run(*module);
+	//legacy::PassManager pm;
+	//pm.add(createPrintModulePass(outs()));
+	//pm.run(*module);
 }
 
 /* Executes the AST by running the main function */
 GenericValue CodeGenContext::runCode() {
 	std::cout << "Running code...\n";
+	std::string error;
 	ExecutionEngine *ee = EngineBuilder(module).setErrorStr(&error).create();
         if(!ee) {
            std::cout << error << "//ee is null.\n";
